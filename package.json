@@ -8,7 +8,10 @@
   },
   "scripts": {
     "test": "mocha tests",
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "eslint src/**/*.js",
+    "format": "eslint src/**/*.js --fix && prettier --write ./src",
+    "tsc": "tsc --project ./"
   },
   "keywords": [
     "Xendit"
@@ -22,6 +25,12 @@
   },
   "devDependencies": {
     "mocha": "^6.1.4",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "eslint": "6.0.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.2.0",
+    "@typescript-eslint/eslint-plugin": "2.10.0",
+    "@typescript-eslint/parser": "2.10.0",
+    "prettier": "^2.6.2"
   }
 }
