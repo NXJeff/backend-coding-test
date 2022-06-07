@@ -10,7 +10,7 @@ const jsonParser = bodyParser.json();
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(':memory:');
 
-const buildSchemas = require('./src/schemas');
+const buildSchemas = require('./src/database/schemas');
 const logger = require('./src/utils/logger');
 
 db.serialize(() => {
