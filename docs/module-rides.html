@@ -193,7 +193,7 @@
     
 
     
-    <h4 class="name" id="~/health"><span class="type-signature">(inner) </span>/health<span class="signature">(String)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~/health"><span class="type-signature">(inner) </span>/health<span class="signature">()</span><span class="type-signature"> &rarr; {any}</span></h4>
     
 
     
@@ -211,55 +211,6 @@ To check if the server is in healthy state.
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>String</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">any</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">'Healthy: (with http 200) if server is at healthy state'</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -320,6 +271,28 @@ To check if the server is in healthy state.
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    String - 'Healthy: (with http 200) if server is at healthy state'
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">any</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -331,7 +304,7 @@ To check if the server is in healthy state.
     
 
     
-    <h4 class="name" id="~/rides/:id"><span class="type-signature">(inner) </span>/rides/:id<span class="signature">(rows, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~/rides/:id"><span class="type-signature">(inner) </span>/rides/:id<span class="signature">()</span><span class="type-signature"> &rarr; {any|any}</span></h4>
     
 
     
@@ -395,52 +368,6 @@ To check if the server is in healthy state.
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>rows</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">any</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">a list of rides that filter by rideID</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">any</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The error object contains error_code and message if error occurred.</td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -478,7 +405,7 @@ To check if the server is in healthy state.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line140">line 140</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line146">line 146</a>
     </li></ul></dd>
     
 
@@ -503,6 +430,48 @@ To check if the server is in healthy state.
 
 
 
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    rows - a list of rides that filter by rideID
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">any</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    error - The error object contains error_code and message if error occurred.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">any</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
 
 
 
@@ -514,7 +483,7 @@ To check if the server is in healthy state.
     
 
     
-    <h4 class="name" id="~get:/rides"><span class="type-signature">(inner) </span>get:/rides<span class="signature">(rows, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~get:/rides"><span class="type-signature">(inner) </span>get:/rides<span class="signature">(page, pageSize)</span><span class="type-signature"> &rarr; {any|any}</span></h4>
     
 
     
@@ -558,13 +527,13 @@ To check if the server is in healthy state.
 
         <tr>
             
-                <td class="name"><code>rows</code></td>
+                <td class="name"><code>page</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">number</span>
 
 
             
@@ -574,20 +543,20 @@ To check if the server is in healthy state.
 
             
 
-            <td class="description last">a list of rides</td>
+            <td class="description last">the request page</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>error</code></td>
+                <td class="name"><code>pageSize</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">number</span>
 
 
             
@@ -597,7 +566,7 @@ To check if the server is in healthy state.
 
             
 
-            <td class="description last">The error object contains error_code and message if error occurred.</td>
+            <td class="description last">the size of the page</td>
         </tr>
 
     
@@ -663,6 +632,48 @@ To check if the server is in healthy state.
 
 
 
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    rows - a list of rides
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">any</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    error - The error object contains error_code and message if error occurred.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">any</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
 
 
 
@@ -674,7 +685,7 @@ To check if the server is in healthy state.
     
 
     
-    <h4 class="name" id="~post:/rides"><span class="type-signature">(inner) </span>post:/rides<span class="signature">(rows, error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~post:/rides"><span class="type-signature">(inner) </span>post:/rides<span class="signature">()</span><span class="type-signature"> &rarr; {any|any}</span></h4>
     
 
     
@@ -876,52 +887,6 @@ To check if the server is in healthy state.
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>rows</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">any</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The ride record after saved to be send through response object</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>error</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">any</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The error object contains error_code and message if error occurred.</td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -984,6 +949,48 @@ To check if the server is in healthy state.
 
 
 
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    rows - The ride record after saved to be send through response object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">any</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    error - The error object contains error_code and message if error occurred.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">any</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
 
 
 
@@ -1005,13 +1012,13 @@ To check if the server is in healthy state.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-rides.html">rides</a></li></ul><h3>Global</h3><ul><li><a href="global.html#create-db-script">create-db-script</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-rides.html">rides</a></li></ul><h3>Global</h3><ul><li><a href="global.html#create-db-script">create-db-script</a></li><li><a href="global.html#logger">logger</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Jun 08 2022 01:17:47 GMT+0800 (Malaysia Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Jun 08 2022 02:58:29 GMT+0800 (Malaysia Time)
 </footer>
 
 <script> prettyPrint(); </script>

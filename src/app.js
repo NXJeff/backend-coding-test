@@ -21,7 +21,7 @@ module.exports = (db) => {
      * @function
      * @memberof module:rides
      * @inner
-     * @param {any} String - 'Healthy: (with http 200) if server is at healthy state'
+     * @returns {any} String - 'Healthy: (with http 200) if server is at healthy state'
      */
     app.get('/health', (req, res) => res.send('Healthy'));
 
@@ -38,8 +38,8 @@ module.exports = (db) => {
      * @param {string} req.body.rider_name - The name of rider
      * @param {string} req.body.driver_name - The name of driver
      * @param {string} req.body.driver_vehicle - The registration name for driver's vehicle
-     * @param {any} rows - The ride record after saved to be send through response object
-     * @param {any} error - The error object contains error_code and message if error occurred.
+     * @returns {any} rows - The ride record after saved to be send through response object
+     * @returns {any} error - The error object contains error_code and message if error occurred.
      */
     app.post('/rides', jsonParser, (req, res) => {
         const startLatitude = Number(req.body.start_lat);
@@ -114,11 +114,17 @@ module.exports = (db) => {
      * @function
      * @memberof module:rides
      * @inner
-     * @param {any} rows - a list of rides
-     * @param {any} error - The error object contains error_code and message if error occurred.
+     * @param {number} page - the request page
+     * @param {number} pageSize - the size of the page
+     * @returns {any} rows - a list of rides
+     * @returns {any} error - The error object contains error_code and message if error occurred.
      */
     app.get('/rides', (req, res) => {
-        db.all('SELECT * FROM Rides', function (err, rows) {
+        const page = req.query.page || 0;
+        const pageSize = req.query.pageSize || 25;
+        const offset = page * pageSize;
+        const query = `SELECT * FROM Rides LIMIT ${pageSize} OFFSET ${offset}`;
+        db.all(query, function (err, rows) {
             if (err) {
                 return res.send({
                     error_code: 'SERVER_ERROR',
@@ -145,8 +151,8 @@ module.exports = (db) => {
      * @inner
      * @name /rides/:id
      * @param {number} req.params.id - identifier of a specific ride to be filtered by
-     * @param {any} rows - a list of rides that filter by rideID
-     * @param {any} error - The error object contains error_code and message if error occurred.
+     * @returns {any} rows - a list of rides that filter by rideID
+     * @returns {any} error - The error object contains error_code and message if error occurred.
      */
     app.get('/rides/:id', (req, res) => {
         db.all(`SELECT * FROM Rides WHERE rideID='${req.params.id}'`, function (err, rows) {
