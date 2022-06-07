@@ -11,7 +11,6 @@
         "amd": true
     },
     "rules": {
-        "@typescript-eslint/no-var-requires": 0,
-        "camelcase": "on"
+        "@typescript-eslint/no-var-requires": 0
     }
 }
