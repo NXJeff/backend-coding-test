@@ -42,7 +42,7 @@ describe('API tests', () => {
             request(app)
                 .get('/rides')
                 .end((err, res) => {
-                    if (err) console.error(err);
+                    if (err) logger.error(err);
                     expect(res.statusCode).to.be.equal(200);
                     expect(res.body.error_code).to.be.equal('RIDES_NOT_FOUND_ERROR');
                     done();
@@ -171,10 +171,29 @@ describe('API tests', () => {
         it('should return a list of ride', (done) => {
             request(app)
                 .get('/rides')
+                .query({
+                    'page': 0,
+                    'pageSize': 25
+                })
                 .end((err, res) => {
-                    if (err) console.error(err);
+                    if (err) logger.error(err);
                     expect(res.statusCode).to.be.equal(200);
                     expect(res.body).to.have.length(1);
+                    done();
+                });
+        });
+        it('should not return a list of ride', (done) => {
+            request(app)
+                .get('/rides')
+                .query({
+                    'page': 1,
+                    'pageSize': 25
+                })
+                .end((err, res) => {
+                    if (err) logger.error(err);
+                    expect(res.statusCode).to.be.equal(200);
+                    expect(res.body).include.all.keys('error_code', 'message');
+                    expect(res.body.error_code).to.be.equal('RIDES_NOT_FOUND_ERROR');
                     done();
                 });
         });
@@ -182,7 +201,7 @@ describe('API tests', () => {
             request(app)
                 .get(`/rides/${rideId}`)
                 .end((err, res) => {
-                    if (err) console.error(err);
+                    if (err) logger.error(err);
                     expect(res.statusCode).to.be.equal(200);
                     expect(res.body[0].driverVehicle).to.be.equal(driverVehicle);
                     done();
@@ -192,7 +211,7 @@ describe('API tests', () => {
             request(app)
                 .get(`/rides/100`)
                 .end((err, res) => {
-                    if (err) console.error(err);
+                    if (err) logger.error(err);
                     logger.info(res.body);
                     expect(res.statusCode).to.be.equal(200);
                     expect(res.body).include.all.keys('error_code', 'message');

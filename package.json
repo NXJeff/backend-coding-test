@@ -13,7 +13,7 @@
     "lint": "eslint src/**/*.js",
     "format": "eslint src/**/*.js --fix && prettier --write ./src",
     "tsc": "tsc --project ./",
-    "prepush": "npm run lint && npm run test:coverage",
+    "prepush": "nvm use 10 && npm run lint && npm run test:coverage",
     "docs": "jsdoc -c jsdoc.json"
   },
   "pre-push": [
