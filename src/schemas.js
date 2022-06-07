@@ -1,5 +1,12 @@
 'use strict';
 
+/**
+ * Initial script for database: create table Rides
+ * @name create-db-script
+ * @function
+ * @param {Database} db - current database instance
+ * @returns  {Database} db - current database instance
+ */
 module.exports = (db) => {
     const createRideTableSchema = `
         CREATE TABLE Rides
