@@ -1,0 +1,15 @@
+config:
+  target: 'http://localhost:8010'
+  phases:
+    - duration: 40
+      arrivalRate: 50
+      rampTo: 100
+scenarios:
+  - name: "Retrieve Rides"
+    flow:
+    - get:
+        url: "/rides"
+  - name: "Retrieve Health"
+    flow:
+    - get:
+        url: "/health"
