@@ -9,6 +9,7 @@
   "scripts": {
     "test": "mocha tests  -r ts-node/register",
     "test:coverage": "nyc npm run test",
+    "test:load": "artillery run tests/load-test.yml",
     "start": "ts-node index.js",
     "lint": "eslint src/**/*.js",
     "format": "eslint src/**/*.js --fix && prettier --write ./src",
@@ -45,6 +46,7 @@
     "chai": "^4.3.6",
     "pre-push": "^0.1.2",
     "typescript": "^4.7.3",
-    "ts-node": "^10.8.1"
+    "ts-node": "^10.8.1",
+    "artillery": "^1.6.2"
   }
 }
