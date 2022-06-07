@@ -12,8 +12,12 @@
     "start": "node index.js",
     "lint": "eslint src/**/*.js",
     "format": "eslint src/**/*.js --fix && prettier --write ./src",
-    "tsc": "tsc --project ./"
+    "tsc": "tsc --project ./",
+    "prepush": "npm run lint && npm run test:coverage"
   },
+  "pre-push": [
+    "test"
+  ],
   "keywords": [
     "Xendit"
   ],
@@ -34,6 +38,7 @@
     "@typescript-eslint/parser": "2.10.0",
     "prettier": "^2.6.2",
     "nyc": "^15.1.0",
-    "chai": "^4.3.6"
+    "chai": "^4.3.6",
+    "pre-push": "^0.1.2"
   }
 }
