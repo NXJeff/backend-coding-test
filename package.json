@@ -14,7 +14,6 @@
     "format": "eslint src/**/*.js --fix && prettier --write ./src",
     "tsc": "tsc --project ./",
     "prepush": "npm run lint && npm run test:coverage",
-    "start": "node index.js",
     "docs": "jsdoc -c jsdoc.json"
   },
   "pre-push": [
