@@ -12,6 +12,7 @@ const expect = require('chai').expect;
 const driverName = "driverA";
 const riderName = "riderA";
 const driverVehicle = "SWR2022"
+const logger = require('../src/utils/logger');
 
 describe('API tests', () => {
     before((done) => {
@@ -61,7 +62,7 @@ describe('API tests', () => {
                     'driver_vehicle': driverVehicle
                 })
                 .end((err, res) => {
-                    if (err) console.log(err);
+                    if (err) logger.error(err);
                     expect(res.statusCode).to.be.equal(200);
                     expect(res.body).include.all.keys('error_code', 'message');
                     expect(res.body.error_code).to.be.equal('VALIDATION_ERROR');
@@ -81,7 +82,7 @@ describe('API tests', () => {
                     'driver_vehicle': driverVehicle
                 })
                 .end((err, res) => {
-                    if (err) console.log(err);
+                    if (err) logger.error(err);
                     expect(res.statusCode).to.be.equal(200);
                     expect(res.body).include.all.keys('error_code', 'message');
                     expect(res.body.error_code).to.be.equal('VALIDATION_ERROR');
@@ -101,7 +102,7 @@ describe('API tests', () => {
                     'driver_vehicle': driverVehicle
                 })
                 .end((err, res) => {
-                    if (err) console.log(err);
+                    if (err) logger.error(err);
                     expect(res.statusCode).to.be.equal(200);
                     expect(res.body).include.all.keys('error_code', 'message');
                     expect(res.body.error_code).to.be.equal('VALIDATION_ERROR');
@@ -121,7 +122,7 @@ describe('API tests', () => {
                     'driver_vehicle': driverVehicle
                 })
                 .end((err, res) => {
-                    if (err) console.log(err);
+                    if (err) logger.error(err);
                     expect(res.statusCode).to.be.equal(200);
                     expect(res.body).include.all.keys('error_code', 'message');
                     expect(res.body.error_code).to.be.equal('VALIDATION_ERROR');
@@ -141,7 +142,7 @@ describe('API tests', () => {
                     'driver_vehicle': ''
                 })
                 .end((err, res) => {
-                    if (err) console.log(err);
+                    if (err) logger.error(err);
                     expect(res.statusCode).to.be.equal(200);
                     expect(res.body).include.all.keys('error_code', 'message');
                     expect(res.body.error_code).to.be.equal('VALIDATION_ERROR');
@@ -161,7 +162,7 @@ describe('API tests', () => {
                     'driver_vehicle': driverVehicle
                 })
                 .end((err, res) => {
-                    if (err) console.log(err);
+                    if (err) logger.error(err);
                     expect(res.statusCode).to.be.equal(200);
                     rideId = res.body[0].rideID;
                     done();
@@ -192,7 +193,7 @@ describe('API tests', () => {
                 .get(`/rides/100`)
                 .end((err, res) => {
                     if (err) console.error(err);
-                    console.log(res.body);
+                    logger.info(res.body);
                     expect(res.statusCode).to.be.equal(200);
                     expect(res.body).include.all.keys('error_code', 'message');
                     expect(res.body.error_code).to.be.equal('RIDES_NOT_FOUND_ERROR');
