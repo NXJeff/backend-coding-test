@@ -6,7 +6,7 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(':memory:');
 
 const app = require('../src/app')(db);
-const buildSchemas = require('../src/schemas');
+const buildSchemas = require('../src/database/schemas');
 const expect = require('chai').expect;
 
 const driverName = "driverA";
@@ -203,7 +203,7 @@ describe('API tests', () => {
                 .end((err, res) => {
                     if (err) logger.error(err);
                     expect(res.statusCode).to.be.equal(200);
-                    expect(res.body[0].driverVehicle).to.be.equal(driverVehicle);
+                    expect(res.body.driverVehicle).to.be.equal(driverVehicle);
                     done();
                 });
         });

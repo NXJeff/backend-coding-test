@@ -7,9 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha tests",
+    "test": "mocha tests  -r ts-node/register",
     "test:coverage": "nyc npm run test",
-    "start": "node index.js",
+    "start": "ts-node index.js",
     "lint": "eslint src/**/*.js",
     "format": "eslint src/**/*.js --fix && prettier --write ./src",
     "tsc": "tsc --project ./",
@@ -25,6 +25,7 @@
   "author": "Bo",
   "license": "ISC",
   "dependencies": {
+    "@types/sqlite3": "^3.1.5",
     "body-parser": "^1.19.0",
     "express": "^4.16.4",
     "sqlite3": "^4.0.6",
@@ -43,6 +44,7 @@
     "nyc": "^15.1.0",
     "chai": "^4.3.6",
     "pre-push": "^0.1.2",
-    "typescript": "^4.7.3"
+    "typescript": "^4.7.3",
+    "ts-node": "^10.8.1"
   }
 }

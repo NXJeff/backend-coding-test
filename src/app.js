@@ -10,9 +10,13 @@ const express = require('express');
 const app = express();
 
 const bodyParser = require('body-parser');
+const logger = require('./utils/logger');
+const { default: RidesRepository } = require('./database/rides');
 const jsonParser = bodyParser.json();
 
 module.exports = (db) => {
+
+    const repository = new RidesRepository(db);
 
     /**
      * GET Health check endpoint:
@@ -41,7 +45,7 @@ module.exports = (db) => {
      * @returns {any} rows - The ride record after saved to be send through response object
      * @returns {any} error - The error object contains error_code and message if error occurred.
      */
-    app.post('/rides', jsonParser, (req, res) => {
+    app.post('/rides', jsonParser, async (req, res) => {
         const startLatitude = Number(req.body.start_lat);
         const startLongitude = Number(req.body.start_long);
         const endLatitude = Number(req.body.end_lat);
@@ -85,27 +89,25 @@ module.exports = (db) => {
             });
         }
 
-        var values = [req.body.start_lat, req.body.start_long, req.body.end_lat, req.body.end_long, req.body.rider_name, req.body.driver_name, req.body.driver_vehicle];
-
-        const result = db.run('INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)', values, function (err) {
-            if (err) {
-                return res.send({
-                    error_code: 'SERVER_ERROR',
-                    message: 'Unknown error'
-                });
+        try {
+            const ride = {
+                "startLat": startLatitude,
+                "startLong": startLongitude,
+                "endLat": endLatitude,
+                "endLong": endLongitude,
+                "riderName": riderName,
+                "driverName": driverName,
+                "driverVehicle": driverVehicle
             }
-
-            db.all('SELECT * FROM Rides WHERE rideID = ?', this.lastID, function (err, rows) {
-                if (err) {
-                    return res.send({
-                        error_code: 'SERVER_ERROR',
-                        message: 'Unknown error'
-                    });
-                }
-
-                res.send(rows);
-            });
-        });
+            const rows = await repository.create(ride);
+            return res.send(rows);
+        } catch (error) {
+            logger.error(`Error %s`, JSON.stringify(error));
+            return res.send({
+                error_code: 'SERVER_ERROR',
+                message: 'Unknown error'
+            })
+        }
     });
 
     /**
@@ -119,28 +121,28 @@ module.exports = (db) => {
      * @returns {any} rows - a list of rides
      * @returns {any} error - The error object contains error_code and message if error occurred.
      */
-    app.get('/rides', (req, res) => {
-        const page = req.query.page || 0;
-        const pageSize = req.query.pageSize || 25;
-        const offset = page * pageSize;
-        const query = `SELECT * FROM Rides LIMIT ${pageSize} OFFSET ${offset}`;
-        db.all(query, function (err, rows) {
-            if (err) {
-                return res.send({
-                    error_code: 'SERVER_ERROR',
-                    message: 'Unknown error'
-                });
-            }
+    app.get('/rides', async (req, res) => {
+        const pageable = {
+            page: req.query.page,
+            pageSize: req.query.pageSize
+        }
+        try {
+            const rows = await repository.getAll(pageable);
 
             if (rows.length === 0) {
                 return res.send({
                     error_code: 'RIDES_NOT_FOUND_ERROR',
-                    message: 'Could not find any rides'
-                });
+                    message: 'Could not find any rides',
+                })
             }
-
-            res.send(rows);
-        });
+            return res.send(rows);
+        } catch (error) {
+            logger.error(`Error %s`, JSON.stringify(error));
+            return res.send({
+                error_code: 'SERVER_ERROR',
+                message: 'Unknown error'
+            })
+        }
     });
 
     /**
@@ -154,24 +156,42 @@ module.exports = (db) => {
      * @returns {any} rows - a list of rides that filter by rideID
      * @returns {any} error - The error object contains error_code and message if error occurred.
      */
-    app.get('/rides/:id', (req, res) => {
-        db.all(`SELECT * FROM Rides WHERE rideID='${req.params.id}'`, function (err, rows) {
-            if (err) {
-                return res.send({
-                    error_code: 'SERVER_ERROR',
-                    message: 'Unknown error'
-                });
-            }
+    app.get('/rides/:id', async (req, res) => {
+        const id = req.params.id;
+        // db.all(`SELECT * FROM Rides WHERE rideID='${req.params.id}'`, function (err, rows) {
+        //     if (err) {
+        //         return res.send({
+        //             error_code: 'SERVER_ERROR',
+        //             message: 'Unknown error'
+        //         });
+        //     }
 
-            if (rows.length === 0) {
+        //     if (rows.length === 0) {
+        //         return res.send({
+        //             error_code: 'RIDES_NOT_FOUND_ERROR',
+        //             message: 'Could not find any rides'
+        //         });
+        //     }
+
+        //     res.send(rows);
+        // });
+        try {
+            const row = await repository.getById(id);
+
+            if (!row) {
                 return res.send({
                     error_code: 'RIDES_NOT_FOUND_ERROR',
-                    message: 'Could not find any rides'
-                });
+                    message: 'Could not find any rides',
+                })
             }
-
-            res.send(rows);
-        });
+            return res.send(row);
+        } catch (error) {
+            logger.error(`Error %s`, JSON.stringify(error));
+            return res.send({
+                error_code: 'SERVER_ERROR',
+                message: 'Unknown error'
+            })
+        }
     });
 
     return app;
